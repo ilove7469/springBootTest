@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity   //jpa관리함을 의미
-@Table(name = "tw_test")
-
-public class TwTestVO {
+@Entity 
+@Table
+public class Tw_test {
 	
 	@Id
 	int num;

@@ -2,36 +2,70 @@ package com.kosta.sbproject.service;
 
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.kosta.sbproject.model.TwTestVO;
-import com.kosta.sbproject.persistence.TwRepository;
-import com.querydsl.core.types.Predicate;
-
+import com.kosta.sbproject.model.Tw_test;
+import com.kosta.sbproject.persistence.DepartmentsRepository;
 
 @Service
 public class TwTestService {
-	
-	@Autowired
-	TwRepository twrepo;
-	
-	public List<TwTestVO> selectAll(){
-		return (List<TwTestVO>)twrepo.findAll();
-	}
-	
-	public Page<TwTestVO> selectAll(PageVO pvo) {  //conditionRetrieve11복사
-		//null테스트는 괄호안에 null, null 넣으면된다.
-		Predicate p = twrepo.makePredicate(pvo.getType(),pvo.getKeyword()); 
-	
-		//makePaging(방향, sort할field)
-		Pageable pageable = pvo.makePaging(0, "companyNo");
-		
-		Page<TwTestVO> result = twrepo.findAll(p, pageable);
-		return result;
-		 
-	}
 
+	@Autowired
+	DepartmentsRepository twRepo;
+	
+	public List<Tw_test> findAll() {
+		return (List<Tw_test>)twRepo.findAll();
+	}
+	
+	
+	 public HSSFWorkbook listExcelDownload(Tw_test param) throws Exception {
+	        
+	        
+	        HSSFWorkbook workbook = new HSSFWorkbook();
+	        
+	        HSSFSheet sheet = workbook.createSheet("엑셀시트명");
+	        
+	        HSSFRow row = null;
+	        
+	        HSSFCell cell = null;
+	        
+	        param.setPager(false);
+	        param.setNullText(NULL_TEXT);
+	        param.setSeparator(DELI_EXCEL);
+	        List<Tw_test> list = Dao.selectList(param);
+	        
+	        row = sheet.createRow(0);
+	        String[] headerKey = {"칼럼1", "칼럼2", "칼럼3", "칼럼4"};
+	        
+	        for(int i=0; i<headerKey.length; i++) {
+	            cell = row.createCell(i);
+	            cell.setCellValue(headerKey[i]);
+	        }
+	        
+	        for(int i=0; i<list.size(); i++) {
+	            row = sheet.createRow(i + 1);
+	            StbcsTaskHstVO vo = list.get(i);
+	            
+	            cell = row.createCell(0);
+	            cell.setCellValue(vo.getEx1());
+	            
+	            cell = row.createCell(1);
+	            cell.setCellValue(vo.getEx2());
+	            
+	            cell = row.createCell(2);
+	            cell.setCellValue(vo.getEx3());
+	            
+	            cell = row.createCell(3);
+	            cell.setCellValue(vo.getEx4());
+	 
+	        }
+	        
+	        return workbook;
+	    }
+	 
 }
