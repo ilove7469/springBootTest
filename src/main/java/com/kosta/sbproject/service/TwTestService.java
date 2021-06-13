@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kosta.sbproject.model.Tw_test;
-import com.kosta.sbproject.persistence.DepartmentsRepository;
+import com.kosta.sbproject.persistence.TwTestRepository;
 
 @Service
 public class TwTestService {
 
 	@Autowired
-	DepartmentsRepository twRepo;
+	TwTestRepository twRepo;
 	
 	public List<Tw_test> findAll() {
 		return (List<Tw_test>)twRepo.findAll();
@@ -34,13 +34,13 @@ public class TwTestService {
 	        
 	        HSSFCell cell = null;
 	        
-	        param.setPager(false);
-	        param.setNullText(NULL_TEXT);
-	        param.setSeparator(DELI_EXCEL);
-	        List<Tw_test> list = Dao.selectList(param);
+	        //param.setPager(false);
+	        //param.setNullText(NULL_TEXT);
+	       // param.setSeparator(DELI_EXCEL);
+	        List<Tw_test> list = (List<Tw_test>) twRepo.findAll();
 	        
 	        row = sheet.createRow(0);
-	        String[] headerKey = {"칼럼1", "칼럼2", "칼럼3", "칼럼4"};
+	        String[] headerKey = {"칼럼1", "칼럼2"};
 	        
 	        for(int i=0; i<headerKey.length; i++) {
 	            cell = row.createCell(i);
@@ -49,20 +49,14 @@ public class TwTestService {
 	        
 	        for(int i=0; i<list.size(); i++) {
 	            row = sheet.createRow(i + 1);
-	            StbcsTaskHstVO vo = list.get(i);
+	            Tw_test vo = list.get(i);
 	            
 	            cell = row.createCell(0);
-	            cell.setCellValue(vo.getEx1());
+	            cell.setCellValue(vo.getName());
 	            
 	            cell = row.createCell(1);
-	            cell.setCellValue(vo.getEx2());
-	            
-	            cell = row.createCell(2);
-	            cell.setCellValue(vo.getEx3());
-	            
-	            cell = row.createCell(3);
-	            cell.setCellValue(vo.getEx4());
-	 
+	            cell.setCellValue(vo.getNum());
+
 	        }
 	        
 	        return workbook;

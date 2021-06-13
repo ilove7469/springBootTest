@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,13 +41,40 @@ public class twTestController {
 	}
 	
 	
-	@RequestMapping(value="/exceldownload.do")
+	@RequestMapping(value="/exceldownload")
     public void excelDownload( HttpServletRequest request ,HttpServletResponse response ,HttpSession session, Tw_test param) throws Exception {
         
         OutputStream out = null;
         
         try {
             HSSFWorkbook workbook = TwTestService.listExcelDownload(param);
+            
+            
+            // 테이블 헤더용 스타일
+            CellStyle headStyle = workbook.createCellStyle();
+
+            // 가는 경계선을 가집니다.
+            headStyle.setBorderTop(BorderStyle.THIN);
+            headStyle.setBorderBottom(BorderStyle.THIN);
+            headStyle.setBorderLeft(BorderStyle.THIN);
+            headStyle.setBorderRight(BorderStyle.THIN);
+
+            // 배경색은 노란색입니다.
+            headStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);
+            headStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+            // 데이터는 가운데 정렬합니다.
+            headStyle.setAlignment(HorizontalAlignment.CENTER);
+
+            // 데이터용 경계 스타일 테두리만 지정
+
+            CellStyle bodyStyle = workbook.createCellStyle();
+            bodyStyle.setBorderTop(BorderStyle.THIN);
+            bodyStyle.setBorderBottom(BorderStyle.THIN);
+            bodyStyle.setBorderLeft(BorderStyle.THIN);
+            bodyStyle.setBorderRight(BorderStyle.THIN);
+
+	
             
             response.reset();
             response.setHeader("Content-Disposition", "attachment;filename=stbcs_history.xls");
