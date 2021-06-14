@@ -22,6 +22,9 @@ public class TwTestService {
 		return (List<Tw_test>)twRepo.findAll();
 	}
 	
+	public Tw_test insertBoard(Tw_test board) {
+		return twRepo.save(board);
+	}
 	
 	 public HSSFWorkbook listExcelDownload(Tw_test param) throws Exception {
 	        

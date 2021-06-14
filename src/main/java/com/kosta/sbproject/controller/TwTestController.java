@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.sbproject.model.Tw_test;
 import com.kosta.sbproject.service.TwTestService;
@@ -26,9 +28,9 @@ import com.kosta.sbproject.service.TwTestService;
 import lombok.extern.java.Log;
 
 @Log
-@RestController
-//@Controller
-public class twTestController {
+//@RestController
+@Controller
+public class TwTestController {
 	
 	@Autowired 
 	TwTestService TwTestService;
@@ -38,6 +40,20 @@ public class twTestController {
 		//model.addAttribute("deptlist", TwTestService.findAll());
 		//System.out.println(model);
 		return TwTestService.findAll();
+	}
+	
+	@GetMapping("/twinsert")
+	public void twinsert() {
+		
+	}
+	
+	@PostMapping("/twinsert")
+	public void twinsertPost(Tw_test board, RedirectAttributes rttr) {
+		//System.out.println(board);
+		
+		TwTestService.insertBoard(board);
+		
+		//return "redirect:/twlist";
 	}
 	
 	

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<title>추가</title>
+</head>
+<body>
+<form action="/twinsert" method="post">
+번호:<input type="number" name="num"><br>
+이름:<input type="text" name="name"><br>
+이름뒤에 플러스:<input type="text" name="namePlus"><br>
+<input type="submit" value="입력하기" onclick="radioChk();">
+</form>
+
+<script>
+
+var name;
+var namePlus;
+
+function radioChk(){
+	name = $("input[name='name']").val();
+	namePlus = $("input[name='namePlus']").val();
+	 alert("name+namePlus");
+}
+
+
+
+</script>
+
+</body>
+</html>
