@@ -7,7 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+ 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -19,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.sbproject.model.Tw_test;
@@ -37,7 +36,7 @@ public class TwTestController {
 	 
 	@GetMapping("/twlist")
 	public List<Tw_test> deptAll(Model model) {
-		//model.addAttribute("deptlist", TwTestService.findAll());
+		model.addAttribute("deptlist", TwTestService.findAll());
 		//System.out.println(model);
 		return TwTestService.findAll();
 	}

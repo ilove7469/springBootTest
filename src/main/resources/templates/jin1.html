@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>thymeleaf연습시작</h1>
+<p th:text="${greeting}">여기는 p태그입니다.</p>
+<div th:text="${board}">여기</div>
+<div th:utext="${'<h1>'+ board.content +'</h1>'}">utext=html태그</div>
+<div th:text="${'<h1>'+ board.content +'</h1>'}">text=>문자그대로</div>
+
+</body>
+</html>
