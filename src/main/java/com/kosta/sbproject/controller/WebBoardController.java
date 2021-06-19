@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -139,9 +139,7 @@ public class WebBoardController {
         
         try {
         	
-            HSSFWorkbook workbook = service.listExcelDownload(param, model, pagevo);
-            
-           
+        	XSSFWorkbook workbook = service.listExcelDownload(param, model, pagevo);
             
             // 테이블 헤더용 스타일
             CellStyle headStyle = workbook.createCellStyle();
@@ -154,7 +152,7 @@ public class WebBoardController {
 
             // 배경색은 노란색입니다.
             headStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);
-            headStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+           // headStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
             // 데이터는 가운데 정렬합니다.
             headStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -178,7 +176,7 @@ public class WebBoardController {
             out.flush();
             
         } catch (Exception e) {
-           // logger.error("exception during downloading excel file : {}", e);
+           //logger.error("exception during downloading excel file : {}", e);
         } finally {
             if(out != null) out.close();
         }    

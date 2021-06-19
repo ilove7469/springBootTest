@@ -4,10 +4,14 @@ package com.kosta.sbproject.service;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.kosta.sbproject.model.PageVO;
-import com.kosta.sbproject.model.Tw_test;
 import com.kosta.sbproject.model.WebBoard;
 import com.kosta.sbproject.persistence.WebBoardRepository;
 import com.querydsl.core.types.Predicate;
@@ -68,18 +71,21 @@ public class WebBoardService {
 	}
 	
 	//엑셀다운로드
-	 public HSSFWorkbook listExcelDownload(WebBoard param, Model model,PageVO pvo) throws Exception {
+	 public XSSFWorkbook listExcelDownload(WebBoard param, Model model,PageVO pvo) throws Exception {
 	        
 		 System.out.println("--------------------엑셀확인------------------");
 		 System.out.println(pvo.getKeyword() +"----------------"+pvo.getType());
 		 
-	        HSSFWorkbook workbook = new HSSFWorkbook();
+		 XSSFWorkbook workbook = new XSSFWorkbook();
 	        
-	        HSSFSheet sheet = workbook.createSheet("엑셀시트명");
+		 XSSFSheet sheet = workbook.createSheet("엑셀시트명");
 	        
-	        HSSFRow row = null;
+		 XSSFRow row = null;
 	        
-	        HSSFCell cell = null;
+	        XSSFCell cell = null;
+	        
+	        
+	        
 	        
 	        //param.setPager(false);
 	        //param.setNullText(NULL_TEXT);
@@ -92,7 +98,7 @@ public class WebBoardService {
 	        System.out.println(list);
 	        
 	        row = sheet.createRow(0);
-	        String[] headerKey = {"칼럼1", "칼럼2"};
+	        String[] headerKey = {"게시판번호", "제목", "작성자", "등록일"};
 	        
 	        for(int i=0; i<headerKey.length; i++) {
 	            cell = row.createCell(i);
@@ -102,12 +108,19 @@ public class WebBoardService {
 	        for(int i=0; i<list.size(); i++) {
 	            row = sheet.createRow(i + 1);
 	            WebBoard vo = list.get(i);
-	            System.out.println("----------------------"+vo.getContent());
+	           
 	            cell = row.createCell(0);
-	            cell.setCellValue(vo.getContent());
+	            cell.setCellValue(vo.getBno());
 	            
 	            cell = row.createCell(1);
 	            cell.setCellValue(vo.getTitle());
+	            
+	            cell = row.createCell(2);
+	            cell.setCellValue(vo.getWriter());
+	            
+	            cell = row.createCell(3);
+	            cell.setCellValue(vo.getRegdate().toString());
+	         
 
 	        }
 	        
