@@ -33,7 +33,7 @@ public class WebBoardController {
 	WebBoardService service;
 	 
 	@GetMapping("/webboard/boardlist")   //방법2 PageVO pagevo
-	public void selectAll(Model model,PageVO pagevo , HttpServletRequest request ) {
+	public void selectAll(Model model, PageVO pagevo, HttpServletRequest request ) {
 		
 		//방법1
 //		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
