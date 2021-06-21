@@ -82,23 +82,20 @@ public class WebBoardService {
 	        
 		 XSSFRow row = null;
 	        
-	        XSSFCell cell = null;
+	     XSSFCell cell = null;
+    
+	     //param.setPager(false);
+	     //param.setNullText(NULL_TEXT);
+	     // param.setSeparator(DELI_EXCEL);
+	     Predicate p = repo.makePredicate1(pvo.getType(),pvo.getKeyword()); 
+	     System.out.println("동적조회 p :"+p);
 	        
+	     List<WebBoard> list = (List<WebBoard>) repo.findAll(p);
 	        
+	     System.out.println(list);
 	        
-	        
-	        //param.setPager(false);
-	        //param.setNullText(NULL_TEXT);
-	       // param.setSeparator(DELI_EXCEL);
-	        Predicate p = repo.makePredicate1(pvo.getType(),pvo.getKeyword()); 
-			System.out.println("동적조회 p :"+p);
-	        
-	        List<WebBoard> list = (List<WebBoard>) repo.findAll(p);
-	        
-	        System.out.println(list);
-	        
-	        row = sheet.createRow(0);
-	        String[] headerKey = {"게시판번호", "제목", "작성자", "등록일"};
+	     row = sheet.createRow(0);
+	     String[] headerKey = {"게시판번호", "제목", "작성자", "등록일"};
 	        
 	        for(int i=0; i<headerKey.length; i++) {
 	            cell = row.createCell(i);
@@ -120,7 +117,6 @@ public class WebBoardService {
 	            
 	            cell = row.createCell(3);
 	            cell.setCellValue(vo.getRegdate().toString());
-	         
 
 	        }
 	        

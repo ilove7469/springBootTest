@@ -130,7 +130,7 @@ public class WebBoardController {
 	
 	//엑셀다운로드
 	@RequestMapping("/webboard/exceldownload")
-    public void excelDownload(Model model,PageVO pagevo , HttpServletRequest request ,HttpServletResponse response ,HttpSession session, WebBoard param) throws Exception {
+    public void excelDownload(Model model, PageVO pagevo, HttpServletRequest request ,HttpServletResponse response ,HttpSession session, WebBoard param) throws Exception {
         
 		 System.out.println("--------------------엑셀확인------------------");
 		 System.out.println(pagevo.getKeyword() +"----------------"+pagevo.getType());
@@ -152,20 +152,18 @@ public class WebBoardController {
 
             // 배경색은 노란색입니다.
             headStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);
-           // headStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            //headStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
             // 데이터는 가운데 정렬합니다.
             headStyle.setAlignment(HorizontalAlignment.CENTER);
 
             // 데이터용 경계 스타일 테두리만 지정
-
             CellStyle bodyStyle = workbook.createCellStyle();
             bodyStyle.setBorderTop(BorderStyle.THIN);
             bodyStyle.setBorderBottom(BorderStyle.THIN);
             bodyStyle.setBorderLeft(BorderStyle.THIN);
             bodyStyle.setBorderRight(BorderStyle.THIN);
 
-	
             
             response.reset();
             response.setHeader("Content-Disposition", "attachment;filename=stbcs_history.xls");

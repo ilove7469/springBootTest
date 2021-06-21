@@ -45,14 +45,16 @@ layout:decorate="~{layout/layout1}">
 	  <h3><a class="label label-default" th:href="@{/webboard/register}">등록</a></h3>
 	</div>
 	
+	
+	<!-- 엑셀 다운용 코드 -->
 	<div class="panel-body pull-right">
-	  <form th:action="@{/webboard/exceldownload}" method="get">
-    <input type='text' name='type' th:value="${pagevo.type}">
-    <input type='text' name='keyword' th:value="${pagevo.keyword}">
-
-	  <input type="submit" name='엑셀다운로드TEST'>
-	    </form>
+		<form th:action="@{/webboard/exceldownload}" method="get">
+	    <input type='text' name='type' th:value="${pagevo.type}">
+	    <input type='text' name='keyword' th:value="${pagevo.keyword}">
+		<input type="submit" name='엑셀다운로드TEST'>
+		</form>
 	</div>
+	<!-- 엑셀 다운용 코드 끝-->
 	
 	
 	<p>[[${resultMessage}]]</p>
