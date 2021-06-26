@@ -24,9 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kosta.sbproject.model.Tw_test;
 import com.kosta.sbproject.service.TwTestService;
 
-import lombok.extern.java.Log;
-
-@Log
 //@RestController
 @Controller
 public class TwTestController {
